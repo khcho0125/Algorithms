@@ -1,0 +1,12 @@
+# [Bronze III] 체스판 조각 - 3004 
+
+[문제 링크](https://www.acmicpc.net/problem/3004) 
+
+### 성능 요약
+
+메모리: 1112 KB, 시간: 0 ms
+
+### 분류
+
+수학(math)
+

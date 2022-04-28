@@ -1,0 +1,15 @@
+SELECT
+    ID,
+    NAME,
+    HOST_ID
+FROM
+    PLACES P
+WHERE
+    (SELECT
+        COUNT(ID)
+    FROM
+        PLACES L
+    WHERE
+        P.HOST_ID = L.HOST_ID
+    GROUP BY
+        HOST_ID) > 1

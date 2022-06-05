@@ -3,14 +3,13 @@
 #define ll long long
 
 int main() {
-    int N;
+    ll N;
     scanf("%d", &N);
     while(N) {
         ll ans = (ll)N;
         for(ll i = 2LL; i * i <= ans; i++) {
             if(N % i == 0) {
-                ans *= (i - 1);
-                ans /= i;
+                ans -= ans / i;
 
                 do {
                     N /= i;
@@ -18,8 +17,7 @@ int main() {
             }
         }
         if(N > 1) {
-            ans *= N - 1;
-            ans /= N;
+            ans -= ans / N;
         }
 
         printf("%lld\n", ans == 1LL ? 0LL : ans);

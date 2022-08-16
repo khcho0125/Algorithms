@@ -1,1 +1,1 @@
-main(T,A,B){gets(&T);for(;~scanf("%d%d",&A,&B);printf("%d\n",A+B));}
+main(T,A,B){for(gets(&T);~scanf("%d%d",&A,&B);printf("%d\n",A+B));}

@@ -1,1 +1,1 @@
-main(){char B[100];for(;gets(&B);printf("%s\n",B));}
+main(){for(char B[100];gets(&B);printf("%s\n",B));}

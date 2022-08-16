@@ -1,0 +1,1 @@
+A[201],i;main(T,B){for(scanf("%d",&T);i++<T;scanf("%d",&B),A[B+100]++);scanf("%d",&T);printf("%d",A[T+100]);}

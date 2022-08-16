@@ -1,0 +1,1 @@
+B[31],j;main(i){for(;~scanf("%d",&i);B[i]++);for(;++j<31;printf(B[j]?"":"%d\n",j));}

@@ -1,0 +1,1 @@
+i;main(){char B[100];for(gets(&B);B[i];printf("%c", (B[i] > 90) ? (B[i] - 32) : (B[i] + 32)),i++);}

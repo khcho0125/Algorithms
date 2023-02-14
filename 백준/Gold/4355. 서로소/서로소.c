@@ -2,25 +2,31 @@
 
 #define ll long long
 
+ll count(ll);
+
 int main() {
     ll N;
-    scanf("%d", &N);
+    scanf("%lld", &N);
     while(N) {
-        ll ans = (ll)N;
-        for(ll i = 2LL; i * i <= ans; i++) {
-            if(N % i == 0) {
-                ans -= ans / i;
-
-                do {
-                    N /= i;
-                } while(N % i == 0);
-            }
-        }
-        if(N > 1) {
-            ans -= ans / N;
-        }
-
-        printf("%lld\n", ans == 1LL ? 0LL : ans);
-        scanf("%d", &N);
+        printf("%lld\n", N == 1 ? 0 : count(N));
+        scanf("%lld", &N);
     }
+}
+
+ll count(ll N) {
+    ll ans = N;
+    for(ll i = 2; i * i <= ans; i++) {
+        if(N % i == 0) {
+            ans -= ans / i;
+
+            do {
+                N /= i;
+            } while(N % i == 0);
+        }
+    }
+    if(N > 1) {
+        ans -= ans / N;
+    }
+
+    return ans;
 }

@@ -1,54 +1,40 @@
 #include<stdio.h>
-int broken[11] = {0,};
-int num_1,num_2,num, N,goal,min=1000000, length,l;
-int check(int);
+#include<stdbool.h>
 
-int main()
-{
-    scanf("%d %d", &goal, &N);
-    num_1 = goal - 100;
-    if(num_1 < 0)num_1 = -1 * num_1;
+#define abs(a) ((a) < 0 ? (a) * -1 : a)
+#define min(a, b) ((a) < (b) ? a : b)
 
-    for(int i = 0; i < N; i++)
-    {
-        int k;
-        scanf("%d", &k);
-        broken[k] = 1;
-    }
+bool remote[10];
 
-    for(int i = 0; i < 1000001; i++)
-    {
-        length=check(i);
-        if(length)
-        {
-            int k = goal - i;
-            if(k < 0) k = k *- 1;
-            if(k < min)
-            {
-                min = k;
-                l = length;
-            }
-        }
-    }
-    num_2 = min + l;
+int broken(int N) {
+    int len = 0;
+    do {
+        if (remote[N % 10]) return false;
+        N /= 10;
+        len++;
+    } while(N);
 
-    printf("%d", num_1 < num_2 ? num_1 : num_2);
-
-    return 0;
+    return len;
 }
 
-int check(int k)
-{
-    int length = 0;
-    if(k == 0)
-    {
-        return broken[0] ? 0 : 1;
+int main() {
+    int channel, M, button;
+    scanf("%d %d", &channel, &M);
+    for(int i = 0; i < M; i++) {
+        scanf("%d", &button);
+        remote[button] = true;
     }
-    while (k)
-    {
-        length++;
-        if(broken[k % 10]) return 0;
-        k /= 10;
+
+    int least = abs(channel - 100);
+
+    for(int i = 0; i <= 1000000; i++) {
+        int len = broken(i);
+
+        if (len) {
+            least = min(least, len + abs(channel - i));
+        }
+
     }
-    return length;    
+
+    printf("%d", least);
 }

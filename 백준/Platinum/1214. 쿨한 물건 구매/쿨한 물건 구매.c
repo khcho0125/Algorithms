@@ -2,7 +2,6 @@
 
 #define min(a, b) ((a) < (b) ? a : b)
 #define swap(a, b) {int _swap = a; a = b; b = _swap;}
-#define ll long long
 
 int overDivide(int N, int M) {
     return (N / M) + (N % M != 0);

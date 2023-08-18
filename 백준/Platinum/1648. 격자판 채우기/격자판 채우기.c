@@ -1,41 +1,39 @@
 #include<stdio.h>
 #include<string.h>
 
+#define N_MAX 14
+#define M_MAX 14
 #define MOD 9901
 
-#define fill(src, val) {src = (src + val) % MOD;}
+#define NOT_VISIT -1
 
-int dp[17][1 << 14];
-int temp[1 << 14];
-int all;
+int N, M;
+int dp[N_MAX * M_MAX][1 << M_MAX];
 
-void way(int grid, int next, int val) {
-    for(int k = next; k <= all; k <<= 1) {
-        if((grid & k) == 0) {
-            fill(temp[grid | k], val);
-            way(grid | k, k << 2, val);
-        }
+int go(int idx, int status) {
+    if(idx >= N * M) return status ? 0 : (idx == N * M);
+
+    if(dp[idx][status] != NOT_VISIT) return dp[idx][status];
+
+    dp[idx][status] = 0;
+
+    if(status & (1 << 0)) {
+        return dp[idx][status] = go(idx + 1, status >> 1);
     }
+    
+    if(idx % M < (M - 1) && (status & (1 << 1)) == 0) {
+        dp[idx][status] += go(idx + 2, status >> 2);
+    }
+
+    dp[idx][status] += go(idx + 1, (status >> 1) | (1 << (M - 1)));
+
+    dp[idx][status] %= MOD;
+    return dp[idx][status];
 }
 
 int main() {
-    int N, M;
+    memset(dp, -1, sizeof(dp));
     scanf("%d %d", &N, &M);
-    
-    all = (1 << N) - 1;
 
-    dp[0][0] = 1;
-    for(int i = 0; i < M; i++) {
-        memset(temp, 0, sizeof(temp));
-        for(int b = 0; b <= all; b++) {
-            way(b, 3, dp[i][b]);
-        }
-
-        for(int b = 0; b <= all; b++) {
-            fill(dp[i][b], temp[b]);
-            fill(dp[i + 1][b ^ all], dp[i][b]);
-        }
-    }
-
-    printf("%d", dp[M - 1][all]);
+    printf("%d", go(0, 0));
 }

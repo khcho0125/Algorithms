@@ -11,7 +11,7 @@ typedef struct Shark {
 Shark info[N_MAX];
 bool graph[N_MAX + N_MAX][N_MAX];
 
-int A[N_MAX + N_MAX], B[N_MAX];
+int eaten[N_MAX];
 int visit[N_MAX + N_MAX];
 
 int compare(int i, int j) {
@@ -32,9 +32,8 @@ bool dfs(int idx, int turn) {
 
     for(int i = 0; i < N; i++) {
         if(graph[idx][i]) {
-            if(B[i] == -1 || dfs(B[i], turn)) {
-                B[i] = idx;
-                A[idx] = i;
+            if(eaten[i] == -1 || dfs(eaten[i], turn)) {
+                eaten[i] = idx;
 
                 return true;
             }
@@ -45,8 +44,7 @@ bool dfs(int idx, int turn) {
 }
 
 int bipartite() {
-    memset(A, -1, sizeof(A));
-    memset(B, -1, sizeof(B));
+    memset(eaten, -1, sizeof(eaten));
 
     int ans = 0;
     for(int i = 0; i < N + N; i++) {

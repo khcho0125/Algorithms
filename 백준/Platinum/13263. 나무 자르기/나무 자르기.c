@@ -16,7 +16,7 @@ Line* F[MAX];
 int temp = 0;
 
 double cross(Line* a, Line* b) {
-    return (b->b - a->b) / (a->a - b->a);
+    return (double)(b->b - a->b) / (a->a - b->a);
 }
 
 int lowerBound(int idx) {

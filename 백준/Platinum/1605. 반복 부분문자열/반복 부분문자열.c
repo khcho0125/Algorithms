@@ -8,25 +8,24 @@
 #define cmp(a, b, c) (rank[a] < rank[b] || (rank[a] == rank[b] && rank[a + c] < rank[b + c]))
 
 char str[MAX_LEN];
+int cnt[MAX_LEN + 1];
 int rank[MAX_LEN + MAX_LEN], nextRank[MAX_LEN + MAX_LEN];
 int idx[MAX_LEN];
 
 int* suffix(int len) {
-    int m = len + 1;
-    int* cnt = (int*)malloc(sizeof(int) * m);
     int* sa = (int*)malloc(sizeof(int) * len);
 
     for(int i = 0; i < len; i++) sa[i] = i, rank[i] = str[i] - 'a' + 1;
 
     for(int d = 1; d < len; d <<= 1) {
-        memset(cnt, 0, sizeof(int) * m);
+        memset(cnt, 0, sizeof(cnt));
         for(int i = 0; i < len; i++) cnt[rank[i + d]]++;
-        for(int i = 1; i < m; i++) cnt[i] += cnt[i - 1];
+        for(int i = 1; i < MAX_LEN + 1; i++) cnt[i] += cnt[i - 1];
         for(int i = len - 1; i >= 0; i--) idx[--cnt[rank[i + d]]] = i;
 
-        memset(cnt, 0, sizeof(int) * m);
+        memset(cnt, 0, sizeof(cnt));
         for(int i = 0; i < len; i++) cnt[rank[i]]++;
-        for(int i = 1; i < m; i++) cnt[i] += cnt[i - 1];
+        for(int i = 1; i < MAX_LEN + 1; i++) cnt[i] += cnt[i - 1];
         for(int i = len - 1; i >= 0; i--) sa[--cnt[rank[idx[i]]]] = idx[i];
 
         nextRank[sa[0]] = 1;

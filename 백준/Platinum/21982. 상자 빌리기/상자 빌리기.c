@@ -13,11 +13,11 @@ B queue[N_MAX];
 ll p, q;
 
 ll nextHeight(ll x) {
-    return x + 1 + (((x % h[3] * h[1]) % h[3] + h[2]) % h[3]);
+    return x + 1 + ((x * h[1] + h[2]) % h[3]);
 }
 
 ll nextWeight(ll x) {
-    return ((x % w[3] * w[1]) % w[3] + w[2]) % w[3] + 1;
+    return (x * w[1] + w[2]) % w[3] + 1;
 }
 
 ll solution(ll N, ll X) {
